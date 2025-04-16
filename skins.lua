@@ -203,7 +203,7 @@ if game.PlaceId == 77614252294790 then
 									v:Destroy()
 								end
 							end
-							if v:IsA("ImageLabel") then v:Destroy() end
+							if v:IsA("ImageLabel") then v.Image="rbxassetid://" .. 14916455401 end
 						end
 					end
 				end)
@@ -215,13 +215,13 @@ if game.PlaceId == 77614252294790 then
 					if game.Workspace:FindFirstChild("Stare") then
 						for i,v in game.Workspace.Rush:GetDescendants() do
 							if v:IsA("ParticleEmitter") then
-								if v.Name == "Face" then
+								if v.Name == "RushFace" then
 									v.Texture="rbxassetid://" .. 18939510828
 								else
 									v:Destroy()
 								end
 							end
-							if v:IsA("ImageLabel") then v:Destroy() end
+							if v:IsA("ImageLabel") then v.Image="rbxassetid://" .. 18939510828 end
 						end
 					end
 				end)
