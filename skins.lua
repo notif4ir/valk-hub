@@ -5,7 +5,11 @@ if game.PlaceId == 18186775539 then
 skins = {
     Rush = {
         {Name = "none", Description = "literally just nothing."},
-		{Name = "chomik", Description = "find the rushes [613761346]"},
+	{Name = "trollface", Description = "GET TROLLOLOLOLOLLED!"},
+    },
+    Stare = {
+        {Name = "none", Description = "literally just nothing."},
+	{Name = "chomik", Description = "find the rushes [613761346]"},
     },
 }
 
@@ -188,9 +192,27 @@ if game.PlaceId == 77614252294790 then
 	local skins = readfile("skins.txt")
 	if skins then
 		if skins:match("Rush") then
-			if skins:match("chomik") then
+			if skins:match("trollface") then
 				game["Run Service"].RenderStepped:Connect(function()
 					if game.Workspace:FindFirstChild("Rush") then
+						for i,v in game.Workspace.Rush:GetDescendants() do
+							if v:IsA("ParticleEmitter") then
+								if v.Name == "Face" then
+									v.Texture="rbxassetid://" .. 14916455401
+								else
+									v:Destroy()
+								end
+							end
+							if v:IsA("ImageLabel") then v:Destroy() end
+						end
+					end
+				end)
+			end
+		end
+		if skins:match("Stare") then
+			if skins:match("chomik") then
+				game["Run Service"].RenderStepped:Connect(function()
+					if game.Workspace:FindFirstChild("Stare") then
 						for i,v in game.Workspace.Rush:GetDescendants() do
 							if v:IsA("ParticleEmitter") then
 								if v.Name == "Face" then
@@ -199,6 +221,7 @@ if game.PlaceId == 77614252294790 then
 									v:Destroy()
 								end
 							end
+							if v:IsA("ImageLabel") then v:Destroy() end
 						end
 					end
 				end)
