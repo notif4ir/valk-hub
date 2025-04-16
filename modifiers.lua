@@ -153,11 +153,6 @@ if game.PlaceId == 77614252294790 then
 				game.Players.LocalPlayer.Backpack.ChildAdded:Connect(function(child)
 					child:Destroy()
 				end)
-				game.Players.LocalPlayer.Character.ChildAdded:Connect(function(child)
-					if child:IsA("Tool") then
-						child:Destroy()
-					end
-				end)
 			end)
 		end
 		if modifiers:match("GOTTA GO FAST") then
