@@ -259,8 +259,10 @@ end)
 		end
 		if modifiers:match("Brain Damage") then
 			game.Players.LocalPlayer.Character.Humanoid.HealthChanged:Connect(function()
-				if game.Players.LocalPlayer.Character.Humanoid.Health <= 99
-				end)
+				if game.Players.LocalPlayer.Character.Humanoid.Health <= 99 then
+					game.Players.LocalPlayer.Character.Humanoid.Health=0
+				end		
+			end)
 		end
 		if modifiers:match("Absolute Chaos") then
 			spawn(function()
