@@ -237,8 +237,8 @@ local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
 local velocity = Vector3.new()
-local slipFactor = 0.98
-local controlForce = 50
+local slipFactor = 0.995
+local controlForce = 3.5
 
 local moveDir = Vector3.zero
 
