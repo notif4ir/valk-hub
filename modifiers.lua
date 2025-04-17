@@ -11,6 +11,8 @@ modifiers = {
 	{Name = "Slow as a turtle", Description = "Your speed is nearly 2x slower."},
 	{Name = "Blackout", Description = "Delete's all lights from the map."},
 	{Name = "Out of pockets", Description = "You can't equip any items."},
+	{Name = "Slippery Situation", Description = "Everything's slippery now"},
+	{Name = "Brain Damage", Description = "Everything one shots you."},
 }
 
 local Players = game:GetService("Players")
@@ -224,6 +226,41 @@ end)
 					end
 				end
 			end)
+		end
+		if modifiers:match("Slippery Situation") then
+			spawn(function()
+			local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+local velocity = Vector3.new()
+local slipFactor = 0.98
+local controlForce = 50
+
+local moveDir = Vector3.zero
+
+RunService.RenderStepped:Connect(function()
+	character = player.Character
+	if not character then return end
+	humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+	if not humanoidRootPart then return end
+	
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+	if not humanoid then return end
+	
+	moveDir = humanoid.MoveDirection
+	velocity = (velocity + moveDir * controlForce * RunService.RenderStepped:Wait()) * slipFactor
+	humanoidRootPart.Velocity = Vector3.new(velocity.X, humanoidRootPart.Velocity.Y, velocity.Z)
+end)
+				end)
+		end
+		if modifiers:match("Brain Damage") then
+			game.Players.LocalPlayer.Character.Humanoid.HealthChanged:Connect(function()
+				if game.Players.LocalPlayer.Character.Humanoid.Health <= 99
+				end)
 		end
 		if modifiers:match("Absolute Chaos") then
 			spawn(function()
