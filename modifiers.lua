@@ -229,33 +229,39 @@ end)
 		end
 		if modifiers:match("Slippery Situation") then
 			spawn(function()
-			local Players = game:GetService("Players")
+local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
-
 local player = Players.LocalPlayer
+
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+local humanoid = character:WaitForChild("Humanoid")
 
-local velocity = Vector3.new()
-local slipFactor = 0.995
-local controlForce = 3.5
+local velocity = Vector3.zero
+local slipFactor = 0.96
+local controlForce = 60
+local maxSpeed = 40
 
-local moveDir = Vector3.zero
-
-RunService.RenderStepped:Connect(function()
+RunService.RenderStepped:Connect(function(dt)
 	character = player.Character
 	if not character then return end
 	humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-	if not humanoidRootPart then return end
+	humanoid = character:FindFirstChildOfClass("Humanoid")
+	if not humanoidRootPart or not humanoid then return end
 	
-	local humanoid = character:FindFirstChildOfClass("Humanoid")
-	if not humanoid then return end
+	local moveDir = humanoid.MoveDirection
+	if moveDir.Magnitude > 0 then
+		velocity += moveDir.Unit * controlForce * dt
+	end
 	
-	moveDir = humanoid.MoveDirection
-	velocity = (velocity + moveDir * controlForce * RunService.RenderStepped:Wait()) * slipFactor
+	if velocity.Magnitude > maxSpeed then
+		velocity = velocity.Unit * maxSpeed
+	end
+	
+	velocity *= slipFactor
 	humanoidRootPart.Velocity = Vector3.new(velocity.X, humanoidRootPart.Velocity.Y, velocity.Z)
 end)
-				end)
+		end)
 		end
 		if modifiers:match("Brain Damage") then
 			game.Players.LocalPlayer.Character.Humanoid.HealthChanged:Connect(function()
